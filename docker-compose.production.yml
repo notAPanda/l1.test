@@ -1,0 +1,12 @@
+version: '3.4'
+
+services:
+    frankenphp:
+        build:
+            context: .
+            dockerfile: Dockerfile.production
+        entrypoint: php artisan octane:frankenphp --workers=1 --max-requests=1
+        ports:
+            - "8001:8000"
+        volumes:
+            - .:/app
