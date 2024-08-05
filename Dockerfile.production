@@ -22,6 +22,6 @@ ENV SERVER_NAME=:80
 COPY . /app
 
 RUN set -eux; \
-    composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+    composer install --no-cache --prefer-dist --no-dev --no-scripts --no-progress
 
 RUN ls -la /app/vendor
