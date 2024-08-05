@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  php:
+    image: dunglas/frankenphp
+    restart: always
+    ports:
+      - "8080:80" # HTTP
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./app:/app
+      - sqlite_data:/app/database
+
+# Volumes needed for Caddy certificates and configuration
+volumes:
+  caddy_data:
+  caddy_config:
+  sqlite_data:
