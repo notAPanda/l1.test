@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   php:
-    build:
-      context: .
-      dockerfile: Dockerfile.production
+    image: dunglas/frankenphp
     restart: always
     ports:
       - "8081:80" # HTTP
