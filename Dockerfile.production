@@ -1,38 +1,28 @@
-# Stage 1: Build stage for Composer dependencies
-FROM composer:latest AS composer-build
+# Use an official Composer image to build dependencies
+FROM composer:latest AS composer
 
+# Set the working directory
 WORKDIR /app
 
-COPY composer.json composer.lock /app/
+# Copy the composer.json and composer.lock files
+COPY composer.json composer.lock ./
 
-# Install Composer dependencies
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+# Install dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Stage 2: Build stage for NPM dependencies
-FROM node:latest AS npm-build
-
-WORKDIR /app
-
-COPY package.json package-lock.json /app/
-
-# Install NPM dependencies
-RUN npm install
-
-# Stage 3: Final stage
+# Start a new stage from the base image
 FROM dunglas/frankenphp
 
-RUN install-php-extensions \
-    pcntl
-    # Add other PHP extensions here...
+# Be sure to replace "your-domain-name.example.com" by your domain name
+# ENV SERVER_NAME=your-domain-name.example.com
+# If you want to disable HTTPS, use this value instead:
+ENV SERVER_NAME=:80
 
+# Enable PHP production settings
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+# Copy the application code
 COPY . /app
 
-WORKDIR /app
-
-# Copy Composer dependencies from the build stage
-COPY --from=composer-build /app/vendor /app/vendor
-
-# Copy NPM dependencies from the build stage
-COPY --from=npm-build /app/node_modules /app/node_modules
-
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+# Copy the dependencies from the Composer stage
+COPY --from=composer /app/vendor /app/vendor
