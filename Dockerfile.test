@@ -3,10 +3,7 @@ FROM composer:latest AS composer-build
 
 WORKDIR /app
 
-# Copy application files first
-COPY . /app
-
-# Then copy composer files
+# Copy composer files first
 COPY composer.json composer.lock /app/
 
 # Install Composer dependencies
@@ -29,9 +26,10 @@ RUN install-php-extensions \
     pcntl
     # Add other PHP extensions here...
 
-COPY . /app
-
 WORKDIR /app
+
+# Copy application files
+COPY . /app
 
 # Copy Composer dependencies from the build stage
 COPY --from=composer-build /app/vendor /app/vendor
@@ -39,4 +37,7 @@ COPY --from=composer-build /app/vendor /app/vendor
 # Copy NPM dependencies from the build stage
 COPY --from=npm-build /app/node_modules /app/node_modules
 
-ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
+# Ensure the artisan file is executable
+RUN chmod +x /app/artisan
+
+ENTRYPOINT ["php", "/app/artisan", "octane:frankenphp"]
