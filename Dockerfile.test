@@ -3,6 +3,10 @@ FROM composer:latest AS composer-build
 
 WORKDIR /app
 
+# Copy application files first
+COPY . /app
+
+# Then copy composer files
 COPY composer.json composer.lock /app/
 
 # Install Composer dependencies
