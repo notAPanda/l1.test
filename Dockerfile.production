@@ -21,4 +21,7 @@ ENV SERVER_NAME=:80
 # Copy the application code
 COPY . /app
 
-RUN composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+RUN set -eux; \
+    composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
+
+RUN ls -la /app/vendor
