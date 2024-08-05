@@ -1,23 +1,23 @@
 # Start a new stage from the base image
 FROM dunglas/frankenphp
 
+WORKDIR /app
+
 RUN install-php-extensions \
     @composer \
     pcntl
     # Add other PHP extensions here...
-
-ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Be sure to replace "your-domain-name.example.com" by your domain name
 # ENV SERVER_NAME=your-domain-name.example.com
 # If you want to disable HTTPS, use this value instead:
 ENV SERVER_NAME=:80
 
-RUN set -eux; \
-	composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
 
 # Enable PHP production settings
 # RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Copy the application code
 COPY . /app
+
+RUN composer install --no-cache --prefer-dist --no-dev --no-autoloader --no-scripts --no-progress
