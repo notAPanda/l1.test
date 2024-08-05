@@ -9,7 +9,7 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ./app:/app
+      - .:/app
       - sqlite_data:/app/database
 
 # Volumes needed for Caddy certificates and configuration
