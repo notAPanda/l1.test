@@ -11,6 +11,16 @@ services:
       - caddy_config:/config
       - .:/app
       - sqlite_data:/app/database
+  composer:
+    image: composer:latest
+    volumes:
+      - .:/app
+    working_dir: /app
+  node:
+    image: node:latest
+    volumes:
+      - .:/app
+    working_dir: /app
 
 # Volumes needed for Caddy certificates and configuration
 volumes:
