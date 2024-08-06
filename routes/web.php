@@ -11,3 +11,7 @@ Route::get('/', function () {
         'users' => $users,
     ]);
 });
+
+Route::get('/seed', function () {
+    return App\Models\User::factory()->create();
+});
