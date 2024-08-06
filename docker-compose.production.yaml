@@ -17,6 +17,7 @@ services:
 
 # Volumes needed for Caddy certificates and configuration
 volumes:
-  caddy_data:
-  caddy_config:
+  # caddy_data:
+  # caddy_config:
   db_data:
+    external: true
