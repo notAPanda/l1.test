@@ -14,6 +14,7 @@
     </head>
     <body class="">
         <div>Hello there {{$name}}</div>
+        <div>Database change test</div>
         @foreach ($users as $user)
             <div>{{$user->email}}</div>
         @endforeach
