@@ -1,3 +1,7 @@
+###########################################
+# Build frontend assets with NPM
+###########################################
+
 ARG NODE_VERSION=20-alpine
 
 FROM node:${NODE_VERSION} AS build
@@ -20,6 +24,10 @@ RUN if [ -f $ROOT/package-lock.json ]; \
 COPY --link . .
 
 RUN npm run build
+
+###########################################
+# Set up PHP environment
+###########################################
 
 FROM dunglas/frankenphp
 
@@ -48,7 +56,7 @@ ENV SERVER_NAME=:80
 COPY . /app
 
 # Copy the built frontend assets from the build stage
-COPY --from=build /var/www/html/dist /app/public
+COPY --from=build /var/www/html/public/build /app/public/build
 
 COPY deployment/php.ini /lib/php.ini
 
