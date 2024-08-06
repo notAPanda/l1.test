@@ -24,4 +24,4 @@ COPY . /app
 RUN set -eux; \
     composer install --no-cache --prefer-dist --no-dev --no-scripts --no-progress
 
-RUN ls -la /app/vendor
+RUN php artisan migrate
