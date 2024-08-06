@@ -13,5 +13,17 @@ Route::get('/', function () {
 });
 
 Route::get('/seed', function () {
-    return App\Models\User::factory()->create();
+    $test_user = [
+        'name' => 'Maciek',
+        'email' => 'test@test.pl',
+        'password' => bcrypt('password'),
+    ];
+
+    $user = App\Models\User::where('email', $test_user['email'])->first();
+
+    if (!$user) {
+        return App\Models\User::create($test_user);
+    }
+
+    return 'ok';
 });
