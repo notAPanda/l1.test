@@ -10,8 +10,8 @@ services:
       # - "443:443" # HTTPS
       # - "443:443/udp" # HTTP/3
     volumes:
-      - caddy_data:/data
-      - caddy_config:/config
+      # - caddy_data:/data
+      # - caddy_config:/config
       - db_data:/app/database # Mount the volume to the database path in the container
 
 
