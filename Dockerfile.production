@@ -5,7 +5,11 @@ WORKDIR /app
 
 RUN install-php-extensions \
     @composer \
-    pcntl
+    pcntl \
+    opcache \
+    apcu \
+    memcached \
+    redis
     # Add other PHP extensions here...
 
 ENV COMPOSER_ALLOW_SUPERUSER=1
