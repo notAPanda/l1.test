@@ -12,6 +12,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
       - db_data:/app/database # Mount the volume to the database path in the container
+      - vendor_data:/app/vendor
 
 
 # Volumes needed for Caddy certificates and configuration
@@ -19,3 +20,4 @@ volumes:
   caddy_data:
   caddy_config:
   db_data:
+  vendor_data:
