@@ -19,6 +19,8 @@ services:
       context: .
       dockerfile: Dockerfile.production
     volumes:
+      - caddy_data:/data
+      - caddy_config:/config
       - db_data:/app/database
       - vendor_data:/app/vendor
     working_dir: /app
