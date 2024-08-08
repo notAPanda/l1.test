@@ -14,18 +14,6 @@ services:
       - db_data:/app/database
       - vendor_data:/app/vendor
 
-  scheduler:
-    build:
-      context: .
-      dockerfile: Dockerfile.production
-    volumes:
-      - db_data:/app/database
-      - vendor_data:/app/vendor
-    working_dir: /app
-    command: ['php', 'artisan', 'schedule:work']
-    restart: always
-
-
 # Volumes needed for Caddy certificates and configuration
 volumes:
   caddy_data:
