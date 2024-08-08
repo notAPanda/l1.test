@@ -11,8 +11,28 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - db_data:/app/database # Mount the volume to the database path in the container
+      - db_data:/app/database
       - vendor_data:/app/vendor
+
+  # scheduler:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile.production
+  #   volumes:
+  #     - db_data:/app/database
+  #     - vendor_data:/app/vendor
+  #   working_dir: /app
+  #   entrypoint: /bin/sh -c "while true; do php artisan schedule:run >> /dev/null 2>&1; sleep 60; done"
+  #   restart: always
+
+  scheduler:
+    image: php:8.3-cli-alpine
+    volumes:
+      - .:/app
+      - vendor_data:/app/vendor
+    working_dir: /app
+    entrypoint: /bin/sh -c "while true; do php artisan schedule:run >> /dev/null 2>&1; sleep 60; done"
+    restart: always
 
 
 # Volumes needed for Caddy certificates and configuration
