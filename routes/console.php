@@ -8,5 +8,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
-Artisan::command('app:create-user', function() {
-})->purpose('generate test user')->everyMinute();
+Artisan::command('app:create-user')->purpose('generate test user')->everyMinute();
