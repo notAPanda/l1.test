@@ -27,7 +27,6 @@ class CreateUser extends Command
      */
     public function handle()
     {
-
         $name = Str::random(8);
 
         User::create([
