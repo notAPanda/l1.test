@@ -60,8 +60,7 @@ COPY --from=build /var/www/html/public/build /app/public/build
 
 COPY deployment/php.ini /lib/php.ini
 
-RUN rm -rf vendor \
-    && composer install \
+RUN composer install \
     --no-dev \
     --no-interaction \
     --no-ansi \
