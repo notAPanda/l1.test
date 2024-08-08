@@ -60,19 +60,11 @@ COPY --from=build /var/www/html/public/build /app/public/build
 
 COPY deployment/php.ini /lib/php.ini
 
-# First composer install
 RUN composer install \
     --no-dev \
     --no-interaction \
-    --no-autoloader \
     --no-ansi \
-    --no-scripts \
-    --audit
-
-# Second composer install with optimization
-RUN composer install \
     --classmap-authoritative \
-    --no-interaction \
-    --no-ansi \
-    --no-dev \
+    --optimize-autoloader \
+    --audit \
     && composer clear-cache
