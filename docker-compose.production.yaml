@@ -14,24 +14,15 @@ services:
       - db_data:/app/database
       - vendor_data:/app/vendor
 
-  # scheduler:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.production
-  #   volumes:
-  #     - db_data:/app/database
-  #     - vendor_data:/app/vendor
-  #   working_dir: /app
-  #   entrypoint: /bin/sh -c "while true; do php artisan schedule:run >> /dev/null 2>&1; sleep 60; done"
-  #   restart: always
-
   scheduler:
-    image: php:8.3-cli
+    build:
+      context: .
+      dockerfile: Dockerfile.production
     volumes:
-      - .:/app
+      - db_data:/app/database
       - vendor_data:/app/vendor
     working_dir: /app
-    entrypoint: /bin/sh -c "while true; do php artisan schedule:run >> /dev/null 2>&1; sleep 60; done"
+    command: ['php', 'artisan', 'schedule:work']
     restart: always
 
 
