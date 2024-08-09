@@ -14,7 +14,7 @@ services:
       - db_data:/app/database
       - vendor_data:/app/vendor
   redis:
-    image: dragonflydb/dragonfly
+    image: docker.dragonflydb.io/dragonflydb/dragonfly
     restart: always
     ports:
       - "6379:6379" # Redis port
