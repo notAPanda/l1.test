@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,4 +28,23 @@ Route::get('/seed', function () {
     }
 
     return 'ok';
+});
+
+Route::get('/redis/set', function() {
+    Cache::set('test', 'hello');
+
+    return response()->json([
+        'status' => 'ok',
+    ]);
+});
+
+Route::get('/redis', function () {
+    return response()->json([
+        'value_from_cache' => Cache::get('test'),
+    ]);
+});
+
+
+Route::get('/cache', function () {
+    return response()->json(DB::table('cache')->get());
 });
