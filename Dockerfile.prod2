@@ -16,6 +16,7 @@ RUN docker-php-ext-install \
     pcntl \
     pdo \
     pdo_pgsql
+
 COPY --from=composer /app /app
 WORKDIR /app
 
