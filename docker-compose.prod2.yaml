@@ -6,9 +6,6 @@ services:
       dockerfile: Dockerfile.prod2
     ports:
       - 8082:8000
-    volumes:
-      - .:/app
-    working_dir: /app
     entrypoint: php artisan octane:frankenphp --workers=1 --max-requests=1
 
   # redis:
