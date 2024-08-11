@@ -6,9 +6,9 @@ WORKDIR /app
 COPY . /app
 RUN composer install --no-dev --no-interaction --no-progress --no-suggest
 
-FROM php:8.3-cli-alpine
+FROM dunglas/frankenphp
 
-RUN docker-php-ext-install \
+RUN install-php-extensions \
     pcntl \
     pdo_pgsql
 
