@@ -1,0 +1,14 @@
+# FROM dunglas/frankenphp
+FROM php:8.3-cli-alpine
+
+RUN install-php-extensions \
+    pcntl \
+    @composer
+    # Add other PHP extensions here...
+
+COPY . /app
+WORKDIR /app
+
+RUN composer install --no-dev --no-interaction --no-progress --no-suggest
+
+ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
