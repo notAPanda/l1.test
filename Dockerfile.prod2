@@ -3,7 +3,7 @@ FROM composer:latest AS composer
 
 WORKDIR /app
 
-COPY composer.json composer.lock /app/
+COPY . /app
 RUN composer install --no-dev --no-interaction --no-progress --no-suggest
 
 FROM php:8.3-cli-alpine
@@ -12,7 +12,6 @@ RUN docker-php-ext-install \
     pcntl
 
 COPY --from=composer /app /app
-COPY . /app
 WORKDIR /app
 
 ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
