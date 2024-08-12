@@ -24,11 +24,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   scheduler:
-    image: myapp_php
+    image: php-app
     entrypoint: php artisan schedule:run
 
   horizon:
-    image: myapp_php
+    image: php-app
     entrypoint: php artisan horizon
 
 volumes:
