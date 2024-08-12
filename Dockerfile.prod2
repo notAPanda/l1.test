@@ -23,7 +23,8 @@ RUN set -ex \
 RUN docker-php-ext-install \
     pcntl \
     pdo \
-    pdo_pgsql
+    pdo_pgsql \
+    redis
 
 COPY --from=build /app/public/build /app/public/build
 COPY --from=composer /app /app
