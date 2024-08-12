@@ -4,14 +4,33 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.prod2
+    image: php-app
     ports:
       - 8082:8000
     entrypoint: php artisan octane:frankenphp --workers=1 --max-requests=1
 
-  # redis:
-  #   image: docker.dragonflydb.io/dragonflydb/dragonfly
+  redis:
+    image: docker.dragonflydb.io/dragonflydb/dragonfly
+    volumes:
+      - redis_data:/data
 
-  # postgres:
-  #   image: postgres:alpine
-  #   volumes:
-  #     - ./data:/var/lib/postgresql/data
+  postgres:
+    image: postgres:alpine
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  scheduler:
+    image: myapp_php:latest
+    entrypoint: php artisan schedule:run
+
+  horizon:
+    image: myapp_php:latest
+    entrypoint: php artisan horizon
+
+volumes:
+  postgres_data:
+  redis_data:
