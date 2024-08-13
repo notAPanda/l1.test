@@ -1,0 +1,12 @@
+FROM dunglas/frankenphp:latest-php8.3-alpine
+
+RUN install-php-extensions pcntl pdo pdo_pgsql redis @composer
+
+COPY . /app
+
+RUN composer install --no-dev --no-interaction --no-progress
+
+RUN npm install
+RUN npm run build
+
+ENTRYPOINT ["php", "artisan", "octane:frankenphp"]

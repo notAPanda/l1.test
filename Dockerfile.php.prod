@@ -1,0 +1,27 @@
+# FROM dunglas/frankenphp
+FROM php:8.3-cli-alpine
+
+# Install dependencies
+RUN set -ex \
+    && apk --no-cache add \
+    nodejs \
+    npm \
+    curl \
+    git \
+    unzip
+
+# Install install-php-extensions script
+RUN curl -sSLf \
+    -o /usr/local/bin/install-php-extensions \
+    https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+    chmod +x /usr/local/bin/install-php-extensions
+
+RUN install-php-extensions pcntl pdo pdo_pgsql redis @composer
+
+COPY . /app
+WORKDIR /app
+
+RUN composer install --no-dev --no-interaction --no-progress
+
+RUN npm install
+RUN npm run build
