@@ -38,12 +38,12 @@ services:
       - postgres
       - redis
 
-  horizon:
-    image: php-app
-    entrypoint: php artisan horizon
-    depends_on:
-      - postgres
-      - redis
+  # horizon:
+  #   image: php-app
+  #   entrypoint: php artisan horizon
+  #   depends_on:
+  #     - postgres
+  #     - redis
 
 volumes:
   postgres_data:
