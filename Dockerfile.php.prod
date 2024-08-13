@@ -16,7 +16,7 @@ RUN curl -sSLf \
 
 RUN install-php-extensions pcntl pdo pdo_pgsql redis @composer
 
-COPY . /app
 WORKDIR /app
+COPY . /app
 
 RUN composer install --no-dev --no-interaction --no-progress

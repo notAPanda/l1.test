@@ -1,5 +1,10 @@
 FROM dunglas/frankenphp:latest-php8.3-alpine
 
+RUN set -ex \
+    && apk --no-cache add \
+    nodejs \
+    npm
+
 RUN install-php-extensions pcntl pdo pdo_pgsql redis @composer
 
 COPY . /app
