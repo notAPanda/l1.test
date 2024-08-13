@@ -4,13 +4,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frankenphp.prod
-    image: frankenphp-app
+    restart: always
     ports:
-      - 8090:8000
-      - 8091:80
-      - 8092:443
-      - 8093:443/udp
-    entrypoint: php artisan octane:frankenphp
+      - 8090:80
+    depends_on:
+      - postgres
+      - redis
     volumes:
       - caddy_data:/data
       - caddy_config:/config
@@ -36,7 +35,6 @@ services:
     image: php-app
     entrypoint: php artisan schedule:run
     depends_on:
-      - php
       - postgres
       - redis
 
@@ -44,7 +42,6 @@ services:
     image: php-app
     entrypoint: php artisan horizon
     depends_on:
-      - php
       - postgres
       - redis
 
