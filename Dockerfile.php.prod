@@ -22,4 +22,4 @@ WORKDIR /app
 COPY . /app
 
 RUN composer install --no-dev --no-interaction --no-progress
-RUN npm install && npm build
+RUN npm install && npm run build
