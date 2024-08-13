@@ -5,14 +5,12 @@ services:
       context: .
       dockerfile: Dockerfile.frankenphp.prod
     restart: always
+    entrypoint: php artisan octane:frankenphp
     ports:
-      - 8081:80
+      - 8081:8000
     depends_on:
       - postgres
       - redis
-    volumes:
-      - caddy_data:/data
-      - caddy_config:/config
 
   redis:
     image: docker.dragonflydb.io/dragonflydb/dragonfly
