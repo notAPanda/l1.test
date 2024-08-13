@@ -1,22 +1,14 @@
-# FROM dunglas/frankenphp
-FROM php:8.3-cli-alpine
+FROM dunglas/frankenphp:latest-php8.3-alpine
 
-# Install dependencies
 RUN set -ex \
-    && apk --no-cache add \
-    curl \
-    git \
-    unzip
+&& apk --no-cache add \
+nodejs \
+npm
 
-# Install install-php-extensions script
-RUN curl -sSLf \
-    -o /usr/local/bin/install-php-extensions \
-    https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
-    chmod +x /usr/local/bin/install-php-extensions
+RUN install-php-extensions pcntl opcache apcu pdo pdo_pgsql redis @composer
 
-RUN install-php-extensions pcntl pdo pdo_pgsql redis @composer
+ENV SERVER_NAME=:80
 
-WORKDIR /app
 COPY . /app
 
 RUN composer install \
@@ -28,31 +20,6 @@ RUN composer install \
     --audit \
     && composer clear-cache
 
+RUN npm install && npm run build
+
 ENTRYPOINT ["php", "artisan", "octane:frankenphp"]
-
-
-# FROM dunglas/frankenphp:latest-php8.3-alpine
-
-# RUN set -ex \
-# && apk --no-cache add \
-# nodejs \
-# npm
-
-# RUN install-php-extensions pcntl opcache apcu pdo pdo_pgsql redis @composer
-
-# ENV SERVER_NAME=:80
-
-# COPY . /app
-
-# RUN composer install \
-#     --no-dev \
-#     --no-interaction \
-#     --no-ansi \
-#     --classmap-authoritative \
-#     --optimize-autoloader \
-#     --audit \
-#     && composer clear-cache
-
-# RUN npm install && npm run build
-
-# ENTRYPOINT ["php", "artisan", "octane:frankenphp"]

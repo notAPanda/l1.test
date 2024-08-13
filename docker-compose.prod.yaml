@@ -1,9 +1,10 @@
 version: '3.8'
 services:
-  frankenphp:
+  php:
     build:
       context: .
-      dockerfile: Dockerfile.frankenphp.prod
+      dockerfile: Dockerfile.php.prod
+    image: php-app
     restart: always
     entrypoint: php artisan octane:frankenphp
     ports:
@@ -26,22 +27,19 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  # scheduler:
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile.php.prod
-  #   image: php-app
-  #   entrypoint: php artisan schedule:run
-  #   depends_on:
-  #     - postgres
-  #     - redis
+  scheduler:
+    image: php-app
+    entrypoint: php artisan schedule:run
+    depends_on:
+      - postgres
+      - redis
 
-  # horizon:
-  #   image: php-app
-  #   entrypoint: php artisan horizon
-  #   depends_on:
-  #     - postgres
-  #     - redis
+  horizon:
+    image: php-app
+    entrypoint: php artisan horizon
+    depends_on:
+      - postgres
+      - redis
 
 volumes:
   postgres_data:

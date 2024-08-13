@@ -6,7 +6,9 @@ RUN set -ex \
     && apk --no-cache add \
     curl \
     git \
-    unzip
+    unzip \
+    nodejs \
+    npm
 
 # Install install-php-extensions script
 RUN curl -sSLf \
@@ -20,3 +22,4 @@ WORKDIR /app
 COPY . /app
 
 RUN composer install --no-dev --no-interaction --no-progress
+RUN npm install && npm build
