@@ -4,8 +4,6 @@ FROM php:8.3-cli-alpine
 # Install dependencies
 RUN set -ex \
     && apk --no-cache add \
-    nodejs \
-    npm \
     curl \
     git \
     unzip
@@ -22,6 +20,3 @@ COPY . /app
 WORKDIR /app
 
 RUN composer install --no-dev --no-interaction --no-progress
-
-RUN npm install
-RUN npm run build
