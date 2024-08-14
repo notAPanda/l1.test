@@ -28,11 +28,7 @@ defineProps({
                         <p
                             class="mt-6 text-gray-500 dark:text-gray-400 leading-relaxed"
                         >
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Ad adipisci nesciunt sint deleniti recusandae,
-                            cum excepturi neque possimus qui sapiente quibusdam
-                            iusto itaque vitae, ab provident nam dignissimos.
-                            Repudiandae, eos?
+                            Czy to działa czy to nie działa?
                         </p>
                         <ul class="mt-6 font-mono">
                             <li v-for="user in users">
