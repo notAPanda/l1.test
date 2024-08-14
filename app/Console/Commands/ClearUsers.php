@@ -28,5 +28,6 @@ class ClearUsers extends Command
     public function handle()
     {
         DB::table('users')->delete();
+        DB::statement('TRUNCATE TABLE users');
     }
 }

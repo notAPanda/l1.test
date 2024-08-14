@@ -1,5 +1,6 @@
 version: '3.8'
 services:
+
   php:
     build:
       context: .
@@ -44,8 +45,6 @@ services:
   ssr:
     image: php-app
     entrypoint: php artisan inertia:start-ssr
-    ports:
-      - 13714:13714
     depends_on:
       - postgres
       - redis

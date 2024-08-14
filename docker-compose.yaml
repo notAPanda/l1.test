@@ -1,10 +1,16 @@
-
+version: '3.8'
 services:
+
   frankenphp:
     build:
       context: .
+    image: frank
     entrypoint: php artisan octane:frankenphp --workers=1 --max-requests=1
     ports:
       - "8000:8000"
     volumes:
       - .:/app
+
+  ssr:
+    image: frank
+    entrypoint: php artisan inertia:start-ssr
