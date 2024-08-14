@@ -41,6 +41,13 @@ services:
       - postgres
       - redis
 
+  ssr:
+    image: php-app
+    entrypoint: php artisan inertia:start-ssr
+    depends_on:
+      - postgres
+      - redis
+
 volumes:
   postgres_data:
   redis_data:
