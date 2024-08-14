@@ -2,8 +2,8 @@
 import AppLayout from "@/Layouts/AppLayout.vue";
 
 defineProps({
-    users: {
-        type: Array,
+    user: {
+        type: Object,
     },
 });
 </script>
@@ -30,11 +30,25 @@ defineProps({
                         >
                             Czy to działa czy to nie działa?
                         </p>
-                        <ul class="mt-6 font-mono">
-                            <li v-for="user in users">
-                                {{ user.id }} - {{ user.email }}
-                            </li>
-                        </ul>
+                        <div class="flex items-center gap-x-6 mt-6">
+                            <img
+                                class="h-16 w-16 rounded-full"
+                                :src="user.profile_photo_url"
+                                alt=""
+                            />
+                            <div>
+                                <h3
+                                    class="text-base font-semibold leading-7 tracking-tight text-gray-900"
+                                >
+                                    {{ user.name }}
+                                </h3>
+                                <p
+                                    class="text-sm font-semibold leading-6 text-indigo-600"
+                                >
+                                    {{ user.email }}
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

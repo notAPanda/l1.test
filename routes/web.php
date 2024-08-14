@@ -1,6 +1,4 @@
 <?php
-
-use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,12 +19,7 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard', [
-            'users' => User::all(),
+            'user' => auth()->user(),
         ]);
     })->name('dashboard');
-
-    Route::get('/job', function() {
-        \App\Jobs\Test::dispatch();
-        return redirect()->route('dashboard');
-    });
 });
