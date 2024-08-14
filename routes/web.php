@@ -24,4 +24,9 @@ Route::middleware([
             'users' => User::all(),
         ]);
     })->name('dashboard');
+
+    Route::get('/job', function() {
+        \App\Jobs\Test::dispatch();
+        return redirect()->route('dashboard');
+    });
 });
