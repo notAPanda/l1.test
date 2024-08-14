@@ -12,6 +12,8 @@ services:
     depends_on:
       - postgres
       - redis
+    volumes:
+      - frankenphp_data:/app/frankenphp
 
   redis:
     image: docker.dragonflydb.io/dragonflydb/dragonfly
@@ -53,3 +55,4 @@ volumes:
   redis_data:
   caddy_data:
   caddy_config:
+  frankenphp_data:
