@@ -44,6 +44,8 @@ services:
   ssr:
     image: php-app
     entrypoint: php artisan inertia:start-ssr
+    ports:
+      - 144517:144517
     depends_on:
       - postgres
       - redis
